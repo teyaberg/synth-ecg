@@ -1,0 +1,28 @@
+[build-system]
+requires = [ "setuptools", "wheel",]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "synth-ecg-gen"
+version = "0.0.1"
+description = "A tool for generating synthetic ecgs."
+
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [ "numpy", "pandas", "scipy"]
+
+[project.optional-dependencies]
+dev = ["pre-commit"]
+tests = ["pytest", "pytest-cov", "rootutils"]
+
+[[project.authors]]
+name="Teya Bergamaschi"
+email="teyabergamaschi@gmail.com"
+
+[project.license]
+file = "LICENSE"
+
+[tool.setuptools_scm]
+
+[project.scripts]
+synth-ecg-gen = "synth_ecg_gen:generate_ecgs:main"

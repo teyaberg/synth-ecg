@@ -1,4 +1,4 @@
-import vcg
+import synth_ecg_gen.utils.vcg as vcg
 import numpy as np
 from scipy.integrate import solve_ivp
 from matplotlib import pyplot as plt
