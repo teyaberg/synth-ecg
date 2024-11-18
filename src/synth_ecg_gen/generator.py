@@ -54,7 +54,6 @@ class ECGGenerator:
                 try:
                     ecg = future.result()
                     ecgs.append(ecg)
-                    logger.debug(f"Generated ECG {i+1}, has shape {ecg.shape}")
                 except Exception as e:
                     logger.error(f"Error generating ECG {i+1}: {e}")
 
