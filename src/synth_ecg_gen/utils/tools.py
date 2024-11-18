@@ -1,5 +1,4 @@
 import numpy as np
-from matplotlib import pyplot as plt
 from scipy.integrate import solve_ivp
 
 # matrix to convert from VCG to 12-lead ECG
@@ -75,6 +74,8 @@ def rotate_vcg(vcg, th_x=0, th_y=0, th_z=0):
 # plot standard 12-lead ECG. Input must be 10s, 12 leads
 # n_squares is how many .5 mV blocks should be used per plot.
 def plot12(ecg, fs=512, n_squares=8):
+    from matplotlib import pyplot as plt
+
     # make sure the signal is 10 seconds long
     assert len(ecg) == fs * 10, "Input signal must be 10 seconds long"
 
