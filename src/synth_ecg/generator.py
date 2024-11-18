@@ -51,7 +51,7 @@ class ECGGenerator:
         heart_rates = np.random.randint(
             self.cfg.generation_params.heart_rate.min,
             self.cfg.generation_params.heart_rate.max,
-            size=self.cfg.dataset_size,
+            size=self.cfg.n_samples,
         )
         ecgs = []
         with ProcessPoolExecutor(max_workers=self.cfg.n_jobs if self.cfg.n_jobs > 0 else None) as executor:

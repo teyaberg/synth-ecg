@@ -1,19 +1,23 @@
-_target_: synth_ecg.generator.ECGGenerator
+output_dir: ???
+n_samples: 10
 
-params:
-  n_jobs: -1
+generator:
+  _target_: synth_ecg.generator.ECGGenerator
 
-  output_dir: tmp
-  dataset_size: 10
+  params:
+    n_jobs: -1
 
-  sample_params:
-    leads: 3
-    frequency: 24
-    duration: 1
-    save_duration: 1
+    output_dir: ${output_dir}
+    n_samples: ${n_samples}
 
-  generation_params:
-    heart_rate:
-      min: 30
-      max: 200
-      step: 0.1
+    sample_params:
+      leads: 3
+      frequency: 24
+      duration: 1
+      save_duration: 1
+
+    generation_params:
+      heart_rate:
+        min: 30
+        max: 200
+        step: 0.1
