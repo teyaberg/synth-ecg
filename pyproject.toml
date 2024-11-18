@@ -9,17 +9,11 @@ description = "A tool for generating synthetic ecgs."
 
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = [ "numpy", "pandas", "scipy", "hydra-core"]
-
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
-]
+dependencies = ["numpy", "pandas", "scipy", "hydra-core", "rootutils"]
 
 [project.optional-dependencies]
 dev = ["pre-commit"]
-tests = ["pytest", "pytest-cov", "rootutils"]
+tests = ["pytest", "pytest-cov"]
 logging = ["loguru"]
 viz = ["matplotlib", "seaborn"]
 
