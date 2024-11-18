@@ -1,4 +1,4 @@
-_target_: synth_ecg_gen.generator.ECGGenerator
+_target_: synth_ecg.generator.ECGGenerator
 
 params:
   n_jobs: -1
