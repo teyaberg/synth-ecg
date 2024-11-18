@@ -1,15 +1,21 @@
 [build-system]
-requires = [ "setuptools", "wheel",]
+requires = ["setuptools>=61.0", "setuptools-scm>=8.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "synth-ecg"
-version = "0.0.1"
+version = "0.0.0a1"
 description = "A tool for generating synthetic ecgs."
 
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [ "numpy", "pandas", "scipy", "hydra-core"]
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
 
 [project.optional-dependencies]
 dev = ["pre-commit"]
