@@ -15,7 +15,11 @@ class ECGGenerator:
         self.frequency = self.cfg.sample_params.frequency
 
         self.save_duration = self.cfg.sample_params.save_duration
-        self.perturbations = self.cfg.generation_params.perturbations
+        self.perturbations = (
+            self.cfg.generation_params.perturbations
+            if hasattr(self.cfg.generation_params, "perturbations")
+            else []
+        )
         logger.debug(
             f"Generator initialized with perturbations {[perturb.name for perturb in self.perturbations]}"
         )
@@ -36,6 +40,10 @@ class ECGGenerator:
         start_point = np.random.randint(0, int((self.duration - self.save_duration) * self.frequency) + 1)
         t = t[start_point : start_point + int(self.save_duration * self.frequency)]
         ecg = ecg[start_point : start_point + int(self.save_duration * self.frequency)]
+
+        # TODO: fix this so you can return specific leads
+        if self.cfg.sample_params.leads is not None:
+            ecg = ecg[:, range(self.cfg.sample_params.leads)]
         return ecg
 
     def generate_ecgs(self):

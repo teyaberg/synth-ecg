@@ -1,7 +1,6 @@
 _target_: synth_ecg_gen.generator.ECGGenerator
 
 params:
-  logging: true
   n_jobs: -1
 
   output_dir: tmp
