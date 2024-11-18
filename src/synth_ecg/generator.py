@@ -4,8 +4,8 @@ from concurrent.futures import ProcessPoolExecutor, as_completed
 import numpy as np
 from loguru import logger
 
-from synth_ecg_gen.utils.tools import convert_vcg_to_12lead, solve_vcg_object
-from synth_ecg_gen.utils.vcg import VCG
+from synth_ecg.utils.tools import convert_vcg_to_12lead, solve_vcg_object
+from synth_ecg.utils.vcg import VCG
 
 
 class ECGGenerator:

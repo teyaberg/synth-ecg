@@ -3,7 +3,7 @@ requires = [ "setuptools", "wheel",]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "synth-ecg-gen"
+name = "synth-ecg"
 version = "0.0.1"
 description = "A tool for generating synthetic ecgs."
 
@@ -27,4 +27,4 @@ file = "LICENSE"
 [tool.setuptools_scm]
 
 [project.scripts]
-synth-ecg-gen = "synth_ecg_gen.generate_ecgs:main"
+synth-ecg-gen = "synth_ecg.generate_ecgs:main"
