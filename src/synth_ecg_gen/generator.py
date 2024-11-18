@@ -1,7 +1,7 @@
 import os
+from concurrent.futures import ProcessPoolExecutor, as_completed
 
 import numpy as np
-import pandas as pd
 from loguru import logger
 
 from synth_ecg_gen.utils.tools import convert_vcg_to_12lead, solve_vcg_object
@@ -36,32 +36,30 @@ class ECGGenerator:
         start_point = np.random.randint(0, int((self.duration - self.save_duration) * self.frequency) + 1)
         t = t[start_point : start_point + int(self.save_duration * self.frequency)]
         ecg = ecg[start_point : start_point + int(self.save_duration * self.frequency)]
-        return t, ecg
+        return ecg
 
     def generate_ecgs(self):
         logger.info("Generating ECGs...")
-        # heart_rates = np.random.randint(
-        #     self.cfg.generation_params.heart_rate.min,
-        #     self.cfg.generation_params.heart_rate.max,
-        #     size=self.cfg.dataset_size,
-        # )
+        heart_rates = np.random.randint(
+            self.cfg.generation_params.heart_rate.min,
+            self.cfg.generation_params.heart_rate.max,
+            size=self.cfg.dataset_size,
+        )
         ecgs = []
-        for i in range(self.cfg.dataset_size):
-            hr = np.random.randint(
-                self.cfg.generation_params.heart_rate.min, self.cfg.generation_params.heart_rate.max
-            )
-            t, ecg = self.generate_ecg(hr)
-            ecgs.append(ecg)
-            logger.debug(f"Generated ECG {i+1} with HR {hr}, has shape {ecg.shape}")
+        with ProcessPoolExecutor(max_workers=self.cfg.n_jobs if self.cfg.n_jobs > 0 else None) as executor:
+            future_to_index = {executor.submit(self.generate_ecg, hr): i for i, hr in enumerate(heart_rates)}
+
+            for future in as_completed(future_to_index):
+                i = future_to_index[future]
+                try:
+                    ecg = future.result()
+                    ecgs.append(ecg)
+                    logger.debug(f"Generated ECG {i+1}, has shape {ecg.shape}")
+                except Exception as e:
+                    logger.error(f"Error generating ECG {i+1}: {e}")
+
         logger.debug(f"Generated {len(ecgs)} ECGs, with shape {np.array(ecgs).shape}")
         return ecgs
-
-    def save_ecg(self, ecgs):
-        logger.info("Saving ECGs...")
-        for i, ecg in enumerate(ecgs):
-            df = pd.DataFrame(ecg)
-            df.to_csv(f"{self.cfg.output_dir}/ecg_{i}.csv", index=False)
-        logger.info(f"Saved {len(ecgs)} ECGs to {self.cfg.output_dir}")
 
     def save_ecgs(self, ecgs):
         logger.info("Saving ECGs...")
