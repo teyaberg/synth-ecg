@@ -4,10 +4,10 @@
 
 ## Installation
 
-You can install the package directly from PyPI using `pip`:
+You can install the package by cloning the repo and running 
 
 ```bash
-pip install synth-ecg
+pip install -e .
 ```
 
 ## Usage
