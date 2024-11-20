@@ -4,7 +4,7 @@
 
 ## Installation
 
-You can install the package by cloning the repo and running 
+You can install the package by cloning the repo and running:
 
 ```bash
 pip install -e .
